@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         String[] name = new String[size];
 
         //sample
-        String[] sample = {"Couldn't find files"};
+        String[] sample = {"Couldn't find files", "Please put music data in the terminal"};
 
         for (int i = 0; i < size; i++) {
             name[i] = mItems.get(i).title;
