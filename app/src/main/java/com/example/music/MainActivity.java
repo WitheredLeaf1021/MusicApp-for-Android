@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
     private SeekBar seek;
     private List<MusicItem> mItems;
     private ArrayList<MediaPlayer> mp = new ArrayList<MediaPlayer>();
-    private String TAG = "ex";
     private Runnable func;
     private Handler handler = new Handler();
     private boolean flgPrev = false;
@@ -74,7 +73,8 @@ public class MainActivity extends AppCompatActivity {
         ImageButton prev = findViewById(R.id.imageButton4);
         ImageButton next = findViewById(R.id.imageButton5);
         ImageButton pause = findViewById(R.id.imageButton6);
-        ImageButton loop = findViewById(R.id.imageButton);
+        ImageButton loopOff = findViewById(R.id.imageButton);
+        ImageButton loopOn = findViewById(R.id.imageButton2);
         musicList = (ListView) findViewById(R.id.musicView);
 
         //端末内の曲リスト
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         String[] name = new String[size];
 
         //sample
-        String[] sample = {"aba", "uru", "op"};
+        String[] sample = {"Couldn't find files"};
 
         for (int i = 0; i < size; i++) {
             name[i] = mItems.get(i).title;
@@ -159,20 +159,30 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //loop
-        loop.setOnClickListener(new View.OnClickListener(){
+        //loopOn
+        loopOn.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
-                //クリックで色変化 & ループON/OFF
-                if(!mp.get(counter).isLooping()){
-                    //Color #2DF10A
-                    loop.setColorFilter(3010826);
-                    mp.get(counter).setLooping(true);
-                }else{
-                    //Color #FFFFFF
-                    loop.setColorFilter(0);
+                //クリックで色変化 & ループOFF
+                if(mp.get(counter).isLooping()){
                     mp.get(counter).setLooping(false);
+                    loopOn.setVisibility(View.INVISIBLE);
+                    loopOff.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        //loopOff
+        loopOff.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                //クリックで色変化 & ループON
+                if(!mp.get(counter).isLooping()){
+                    mp.get(counter).setLooping(true);
+                    loopOff.setVisibility(View.INVISIBLE);
+                    loopOn.setVisibility(View.VISIBLE);
                 }
             }
         });
